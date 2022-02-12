@@ -1,7 +1,10 @@
 package com.api.parkinhcontrol.services;
 
+import com.api.parkinhcontrol.models.ParkingSpotModel;
 import com.api.parkinhcontrol.repositories.ParkingSpotRepository;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 public class ParkingSpotService {
@@ -10,5 +13,20 @@ public class ParkingSpotService {
 
     public ParkingSpotService(ParkingSpotRepository parkingSpotRepository) {
         this.parkingSpotRepository = parkingSpotRepository;
+    }
+
+    @Transactional
+    public ParkingSpotModel save(ParkingSpotModel parkingSpotModel){
+        return parkingSpotRepository.save(parkingSpotModel);
+    }
+
+    public boolean existsByLicensePlateCar(String licensePlateCar){
+        return parkingSpotRepository.existsByLicensePlateCar(licensePlateCar);
+    }
+    public boolean existsByParkingSpotNumber(String parkingSpotNumber){
+        return parkingSpotRepository.existsByParkingSpotNumber(parkingSpotNumber);
+    }
+    public boolean existsByApartmentAndBlock(String apartment, String block){
+        return parkingSpotRepository.existsByApartmentAndBlock(apartment, block);
     }
 }
